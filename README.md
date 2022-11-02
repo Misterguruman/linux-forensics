@@ -13,10 +13,13 @@ _Forensic Science_ or _Forensics_ (n) is the scientific collection of evidence o
 ## Table of Contents - Forensics
 1. [General Principals of Forensics](./wiki/general-principals.md)
 2. [Preparation](./wiki/preparation.md)
+3. [Inital Investigation](./wiki/initial-investigation.md)
 
 ## Table of Contents - Linux Fundamentals
 1. [The mount command](./linux-wiki/mount.md)
-1. [various permissions commands](./linux-wiki/permissions.md)
+1. [Various permissions commands](./linux-wiki/permissions.md)
+1. [Enumerating devices connected to a system](./linux-wiki/enumerating-devices.md)
+1. [Bash scripting basics](./linux-wiki/bash-scripting.md)
 
 ## Supplemental Links
 1. [Installing Linux by Linux TV on Youtube](https://www.youtube.com/watch?v=W-RFY4LQ6oE)
