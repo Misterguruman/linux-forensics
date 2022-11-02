@@ -1,35 +1,66 @@
 # Initial Investigation - Was there a security incident?
 
 ## First steps 
-- Open a case file
-    - Take note of: 
-        - who is calling 
-        - when they called 
-        - what their reason for calling was 
-        - any relavent recent events involving the machine
-        - What is the general purpose of this device? (Web Server, user endpoint, etc)
-        - Where did you purchase this device and when?
+---
+## Open a case file
+- Take note of: 
+    - who is calling 
+    - when they called 
+    - what their reason for calling was 
+    - any relavent recent events involving the machine
+    - What is the general purpose of this device? (Web Server, user endpoint, etc)
+    - Where did you purchase this device and when?
 
-    - Consider taking photos of the system when you acquire it
+- Consider taking photos of the system when you acquire it
 
-- Now you are ready to start your inital investigation to see if there was an incident
-    - Start by mounting your [forensics toolkit usb](./preparation.md) 
-        - Run your known-good shell from your usb on the system
-        - Set path to point to your directories 
-        - Reset LD_LIBRARY_PATH
-        - [terminal example](#mounting-your-usb)
+---
 
-    - Data preservation:
-        - Don't install anything on the subject system
-        - Don't create new files on the system
-        - Minimize memory footprint
-        - Achieve this with two possible solutions
-            - Netcat (best option)
-            - Storing to USB 
+## Now you are ready to start your inital investigation to see if there was an incident
+- Start by mounting your [forensics toolkit usb](./preparation.md) 
+    - Run your known-good shell from your usb on the system
+    - Set path to point to your directories 
+    - Reset LD_LIBRARY_PATH
+    - [terminal example](#mounting-your-usb)
 
-    - Using netcat 
-        - Start your netcat listener on your forensics laptop
+- Data preservation:
+    - Don't install anything on the subject system
+    - Don't create new files on the system
+    - Minimize memory footprint
+    - Achieve this with two possible solutions
+        - Netcat (best option)
+        - Storing to USB 
 
+- Using netcat 
+    - Start your netcat listener on your forensics laptop
+    - [terminal example](#using-netcat-for-exfiltration-examplecommands)
+
+---
+
+## What to collect
+- Date and Time
+    - Clock may be skewed
+    - Might be in a different timezone
+
+- Network interfaces
+    - Funny networks
+    - Promiscuous Mode?
+
+- Network connections
+
+- Open Ports
+
+- Programs associated with ports
+
+- Running processes
+
+- Open files
+
+- Routing tables
+
+- Mounted filesystems
+
+- Loaded kernel modules
+---
 
 ## Setting up your binaries example/commands
 
@@ -82,4 +113,44 @@ uname | nc 192.168.56.1 9999
 # We'll send the suspected compromised bash file to the listener above
 nc 192.168.56.1 4444 < /bin/bash
 ```
+
+### Scripting netcat
+This process can be automated using the scripts located in [server-scripts](../scripts/server-netcat/) and [client-scripts](../scripts/client-netcat/)
+
+## What to gather example/commands
+```bash
+# Send the current time information
+send-log.sh date 
+# All linux version information
+send-log.sh uname -a
+# All network interfaces
+send-log.sh ifconfig -a
+# Current network connections and open ports associated with processes
+send-log.sh netstat -anp
+# Verbose output about currently open files
+send-log.sh lsof -V
+# All processes running
+send-log.sh ps -ef
+# Routing tables
+send-log.sh netstat -rn
+# Also routing tables
+send-log.sh route
+# What is loaded
+send-log.sh lsmod
+# How much free space is on the device's disks
+send-log.sh df
+# What is mounted on the OS
+send-log.sh mount
+# Who's currently online and their last command
+send-log.sh w
+# Login information
+send-log.sh last
+# See all users of the system 
+send-log.sh cat /etc/passwd
+# See all users with empty passwords
+send-log.sh cat /etc/shadow
+```
+
+### Scripting what you gather
+This process can be automated using the scripts located in this [script](../scripts/initial-scan.sh)
 
