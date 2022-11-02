@@ -20,7 +20,3 @@
     - Might require preliminary investigation
 - Proceed with preservation, searching, and event reconstruction
 - IR is not done until your reports are complete
-
-
-
-
